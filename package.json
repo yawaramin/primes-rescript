@@ -1,0 +1,18 @@
+{
+  "name": "primes-rescript",
+  "version": "0.1.0",
+  "scripts": {
+    "clean": "bsb -clean-world",
+    "build": "bsb -make-world",
+    "watch": "bsb -w",
+    "bundle": "esbuild src/primes.js --bundle --outfile=bundle.js"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bs-platform": "^8.3.3"
+  }
+}
