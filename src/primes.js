@@ -47,37 +47,37 @@ function next_prime(num) {
   };
 }
 
-var ta = document.createElement("textarea");
+function main(param) {
+  var ta = document.createElement("textarea");
+  ta.readOnly = true;
+  ta.cols = 40;
+  ta.rows = 5;
+  document.body.appendChild(ta);
+  var match = run_with_elapsed_time(function (param) {
+        var _curr = 1;
+        var _count = 0;
+        while(true) {
+          var count = _count;
+          var curr = _curr;
+          if (count > 99999) {
+            return curr;
+          }
+          _count = count + 1 | 0;
+          _curr = next_prime(curr + 1 | 0);
+          continue ;
+        };
+      });
+  ta.value = "Elapsed time: " + match[1] + "\n" + match[0];
+  
+}
 
-ta.readOnly = true;
-
-ta.cols = 40;
-
-ta.rows = 5;
-
-document.body.appendChild(ta);
-
-var match = run_with_elapsed_time(function (param) {
-      var _curr = 1;
-      var _count = 0;
-      while(true) {
-        var count = _count;
-        var curr = _curr;
-        if (count > 99999) {
-          return curr;
-        }
-        _count = count + 1 | 0;
-        _curr = next_prime(curr + 1 | 0);
-        continue ;
-      };
-    });
-
-ta.value = "Elapsed time: " + match[1] + "\n" + match[0];
+window.onload = main;
 
 export {
   run_with_elapsed_time ,
   is_prime ,
   next_prime ,
+  main ,
   
 }
-/* ta Not a pure module */
+/*  Not a pure module */

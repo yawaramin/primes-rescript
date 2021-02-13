@@ -1,12 +1,17 @@
-external appendChild : _ Dom.node_like -> unit = "" [@@bs.send.pipe: Dom.node]
+type handler = unit -> unit
+
+external appendChild : _ Dom.node_like -> _ Dom.node_like -> unit = "" [@@bs.send]
 external body : Dom.document -> Dom.node = "" [@@bs.get]
 external createTextArea : Dom.document -> (_ [@bs.as "textarea"]) -> Dom.htmlTextAreaElement = "createElement" [@@bs.send]
 external document : Dom.document = "" [@@bs.val]
+external window : Dom.window = "" [@@bs.val]
 
 external set_cols : Dom.htmlTextAreaElement -> int -> unit = "cols" [@@bs.set]
 external set_readOnly : Dom.htmlTextAreaElement -> bool -> unit = "readOnly" [@@bs.set]
 external set_rows : Dom.htmlTextAreaElement -> int -> unit = "rows" [@@bs.set]
 external set_value : Dom.htmlTextAreaElement -> string -> unit = "value" [@@bs.set]
+
+external set_onload : Dom.window -> handler -> unit = "onload" [@@bs.set]
 
 let run_with_elapsed_time f =
   let start = Js.Date.(() |> make |> getTime) in
@@ -32,12 +37,12 @@ let next_prime num =
   let rec lp next = if is_prime next then next else lp (next + 1) in
   lp num
 
-let () =
+let main () =
   let ta = createTextArea document in
   set_readOnly ta true;
   set_cols ta 40;
   set_rows ta 5;
-  appendChild ta (body document);
+  appendChild (body document) ta;
 
   let num, time = run_with_elapsed_time begin fun () ->
     let rec lp curr count =
@@ -49,3 +54,6 @@ let () =
   in
   set_value ta {j|Elapsed time: $time
 $num|j}
+
+let () = set_onload window main
+
