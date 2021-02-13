@@ -49,11 +49,19 @@ function lp(_curr, _count) {
   };
 }
 
-console.log(lp(1, 0));
+var start = new Date().getTime();
+
+var result = lp(1, 0);
+
+var finish = new Date().getTime();
+
+var elapsed = (finish - start) / 1000;
+
+console.log("Result: " + result + ", time: " + elapsed);
 
 export {
   is_prime ,
   next_prime ,
   
 }
-/*  Not a pure module */
+/* start Not a pure module */

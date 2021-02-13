@@ -21,5 +21,9 @@ let () =
     if count > 99_999 then curr
     else lp (next_prime (curr + 1)) (count + 1)
   in
-  Js.log (lp 1 0)
+  let start = Js.Date.(() |> make |> getTime) in
+  let result = lp 1 0 in
+  let finish = Js.Date.(() |> make |> getTime) in
+  let elapsed = (finish -. start) /. 1_000. in
+  Js.log {j|Result: $result, time: $elapsed|j}
 
