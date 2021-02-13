@@ -26,4 +26,3 @@ lib/bs
 .bsb.lock
 node_modules
 bundle.js
-src/primes.js
